@@ -86,17 +86,17 @@ if [[ -f /etc/apt/sources.list ]]; then
     esac
     echo "NodeJS repository added! version is : $node_version"
   fi
-
+  add_actions=$?
 else
   echo "file 'sources.list' in '/etc/apt/' directory not found! exiting script!"
   exit 1
 fi
 
-exit $?
-
 # updating repositories
-if [ -eq 0 ]; then
+if [ $add_actions -eq 0 ]; then
   apt update
+else
+  echo "Something went wrong during repositories configuration ..."
 fi
 
-exit $?
+exit 0
